@@ -14,15 +14,15 @@ const ProductsModal = ({ open, toggle, editProduct, setEditProduct }) => {
       selling_price: +e.target[5].value,
       description: e.target[6].value,
     };
-    if (editProduct._id !== "") {
-      console.log("salom");
+    if (editProduct._id !== undefined) {
       axiosClient.patch(`/products/update/${editProduct._id}`, {...payload}).then((res)=> {
-        if(res?.status == 202) {
-          window.location.reload()
-          console.log(payload);
-        }
-      });
-    } else {
+          if(res?.status == 202) {
+              window.location.reload()
+              console.log(payload);
+              setEditProduct('')
+            }
+          });
+        } else {
       axiosClient.post("/products/add", { ...payload }).then((res) => {
         if (res?.status === 201) {
           window.location.reload();
